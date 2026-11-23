@@ -3,6 +3,7 @@ function initThemeSelector() {
   const themeStylesheetLink = document.getElementById("themeStylesheetLink");
   if (!themeSelect || !themeStylesheetLink) return;
 
+  const themeDirectory = new URL(".", themeStylesheetLink.href);
   const themes = Array.from(themeSelect.options, option => option.value);
   let currentTheme = "red";
   try {
@@ -15,7 +16,7 @@ function initThemeSelector() {
   function activateTheme(themeName) {
     const theme = themes.includes(themeName) ? themeName : "red";
     themeSelect.value = theme;
-    themeStylesheetLink.setAttribute("href", `/css/themes/${theme}.css`);
+    themeStylesheetLink.href = new URL(`${theme}.css`, themeDirectory).href;
   }
 
   activateTheme(currentTheme);
